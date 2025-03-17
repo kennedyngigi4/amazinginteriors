@@ -1,0 +1,81 @@
+{% extends "website/base.html" %}
+{% load humanize %}
+{% load math_filters %}
+{% block title %} Order Details {% endblock %}
+
+{% block content %}
+<section>
+    <div class="container-fluid">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+
+                <div class="alert alert-warning p-3 my-3">
+                    <div class="row">
+                        <div class="col-lg-3 col-12 mb-3">
+                            <small>Order Id</small>
+                            <p class="fw-bold">{{order.orderid}}</p>
+                        </div>
+                        <div class="col-lg-3 col-12 mb-3">
+                            <small>Date Ordered</small>
+                            <p class="fw-bold text-sm">{{order.created_at}}</p>
+                        </div>
+                        <div class="col-lg-2 col-12 mb-3">
+                            <small>Delivery</small>
+                            <p class="fw-bold">{{order.delivery}}</p>
+                        </div>
+                        <div class="col-lg-2 col-12 mb-3">
+                            <small>Payments</small>
+                            <p class="fw-bold">{{order.payments}}</p>
+                        </div>
+                        <div class="col-lg-2 col-12 mb-3">
+                            <small>Contacts</small>
+                            <p class="fw-bold">{{order.phone}}</p>
+                        </div>
+                        <div class="col-lg-3 col-12 mb-3">
+                            <small>Owner</small>
+                            <p class="fw-bold text-capitalize">{{order.user.fullname}}</p>
+                        </div>
+                        <div class="col-lg-4 col-12 mb-3">
+                            <small>Delivery Location</small>
+                            <p class="fw-bold">{{order.location}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="py-4">
+                    <h6 class="fs-5">Order Items</h6>
+                    
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Total Items</th>
+                                <th>Unit Price</th>
+                                <th>Total Price</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order_items %}
+                            <tr>
+                                <td class="text-sm">{{item.product}}</td>
+                                <td class="text-sm">{{item.quantity}}</td>
+                                <td class="text-sm">KSh. {{item.price_at_purchase|intcomma}}</td>
+                                <td class="text-sm">KSh. {{item.price_at_purchase|multiply:item.quantity|intcomma}}</td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

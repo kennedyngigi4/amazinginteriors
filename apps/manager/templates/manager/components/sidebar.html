@@ -1,0 +1,23 @@
+<section class="manager-sidebar">
+    <h1 class="fs-5 pt-3 pb-4 text-warning">SUPERADMIN</h1>
+    <ul class="flex-column nav">
+        <li class="nav-item"> 
+            <a href="{% url 'manager:dashboard' %}" class="nav-link text-white"><i class="bi bi-speedometer2 pe-2"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'manager:categories' %}" class="nav-link text-white"><i class="bi bi-list pe-2"></i> Categories</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'manager:products' %}" class="nav-link text-white"><i class="bi bi-layers pe-2"></i> Products</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'manager:orders' %}" class="nav-link text-white"><i class="bi bi-cart4 pe-2"></i> Orders</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'manager:payments' %}" class="nav-link text-white"><i class="bi bi-bank2 pe-2"></i> Payments</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'manager:users' %}" class="nav-link text-white"><i class="bi bi-people pe-2"></i> Users</a>
+        </li>
+    </ul>
+</section>

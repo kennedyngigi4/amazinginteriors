@@ -1,0 +1,61 @@
+{% extends "website/base.html" %}
+{% load humanize %}
+{% block content %}
+<section>
+    <div class="container-fluid">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+
+                <div class="py-4">
+                    <div class="row">
+                        <div class="col-lg-7 col-12">
+                            
+                        </div>
+                        <div class="col-lg-5 col-12 text-end">
+                            <a href="{% url 'manager:create_product' %}" class="btn btn-dark btn-sm"><i class="bi bi-plus-circle pe-3"></i> Add Item</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>In Stock</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{product.name}}</td>
+                                        <td>KSh. {{product.price|intcomma}}</td>
+                                        <td>
+                                            {% if product.in_stock %}
+                                                <p class="text-success">Yes</p>
+                                            {% else %}
+                                                <p class="text-danger">Out-of-stock</p>
+                                            {% endif %}
+                                        </td>
+                                        <td><a href="{% url 'manager:product_details' product.product_id %}"><i class="bi bi-pencil text-success"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% load static %}
+<section class="bg-black footer">
+    <div class="container">
+        <div class="row py-3">
+            <div class="col-lg-3 col-12">
+                <img src="{% static 'images/logo.png' %}" class="img-fluid" />
+            </div>
+            <div class="col-lg-3 col-6 pt-3">
+                <h1 class="text-yellow fs-6">Exclusive</h1>
+                <div>
+                    <h6 class="text-white">Subscribe</h6>
+
+                    <p class="text-white pt-3 font-light">Get our latest news</p>
+                    <form>
+                        {% csrf_token %}
+                        <div class="input-group bg-black">
+                            <input type="email" class="form-control bg-black text-white" placeholder="Enter your email" />
+                            <span class="input-group-text bg-black"><i class="bi bi-send text-yellow"></i></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 col-6 pt-3">
+                <h1 class="text-yellow fs-6">Support</h1>
+                <div>
+                    <p class="text-white">Karen Nairobi</p>
+                    <p class="text-white">info@amazinginteriors.africa</p>
+                    <p class="text-white">+254 748 318 676</p>
+                </div>
+            </div>
+            <!-- <div class="col-lg-2 col-6 pt-3">
+                <h1 class="text-yellow fs-6">Account</h1>
+
+            </div> -->
+            <div class="col-lg-2 col-6 pt-3">
+                <h1 class="text-yellow fs-6">Quick Link</h1>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white">Terms of Use</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white">Privacy Policy</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row py-2 copyright">
+            <div class="col-lg-12 col-12 text-center">
+                <p class="text-white py-1">&copy; Copyright 2025 <strong class="px-3">Amazing Interiors</strong> All Rights Reserved</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,143 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %} Shop - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+{% include "website/components/header.html" %}
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 text-center col-12">
+                <h1 class="fw-bold">Shop</h1>
+                <p>Home / Shop</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-12 pt-4">
+                <h1 class="fs-5">Filter Options</h1>
+                <hr />
+                <h2 class="fs-6">Category</h2>
+                {% for category in categories %}
+                    <div class="form-check pb-2">
+                        <input type="checkbox" class="form-check-input" id="category-filter" value="{{category.name}}" name="category-filter" />
+                        <label class="form-check-label">{{category.name}}</label>
+                    </div>
+                {% empty %}
+                    <p>No categories found</p>
+                {% endfor %}
+                <hr />
+                <h2 class="fs-6">Price</h2>
+                <div>
+                    <label class="form-label"></label>
+                    <input type="range" class="form-range" id="customRange1">
+                </div>
+                <hr />
+                <h2 class="fs-6">Availability</h2>
+                <div class="form-check mb-3">
+                    <input type="radio" class="form-check-input" id="stock-filter" value="in stock"
+                        name="stock-filter" />
+                    <label class="form-check-label">In Stock</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="stock-filter" value="out of stock"
+                        name="stock-filter" />
+                    <label class="form-check-label">Out of Stock</label>
+                </div>
+            </div>
+            <div class="col-lg-9 col-12 py-3">
+                <div class="row py-4">
+                    {% for product in products %}
+                        <div class="col-lg-4 col-6">
+                            <div class="card mb-4 border-0">
+                                <a href="{% url 'product_details' product.product_id product.name %}">
+                                    <img src="{{product.main_image.url}}" class="img-fluid rounded-3" />
+                                    <div class="card-body">
+                                        <h1 class="fs-6 truncate text-dark">{{product.name}}</h1>
+                                        <p class="text-danger fw-semibold">Ksh. {{product.price|intcomma}}</p>
+                                        <button class="btn btn-sm btn-dark" id="add-to-cart" data-product="{{product.product_id}}">Add To Cart</button>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section>
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">FREE AND FAST DELIVERY</h6>
+                        <p>Free delivery for all orders over $140</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">24/7 CUSTOMER SERVICE</h6>
+                        <p>Friendly 24/7 customer support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">MONEY BACK GUARANTEE</h6>
+                        <p>We return money within 30 days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function(){
+        $(document).on("click", "#add-to-cart", function(e){
+            e.preventDefault();
+
+            var product_id = $(this).data("product")
+            $.ajax({
+                url: "{% url 'add_to_cart' %}",
+                type: "POST",
+                data: {
+                    "product_id": product_id,
+                    "csrfmiddlewaretoken": "{{ csrf_token }}"
+                },  
+                success: (response) => {
+                    toastr.success(response.message)
+                    // location.reload()
+                },
+                error: (error) => {
+                    toastr.error(error)
+                    alert("Failed to add product. Please try again.");
+                }
+
+            })
+        });
+    })
+</script>
+
+{% include "website/components/footer.html" %}
+{% endblock %}

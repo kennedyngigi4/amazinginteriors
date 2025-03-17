@@ -1,0 +1,51 @@
+{% extends "website/base.html" %}
+{% load humanize %}
+
+{% block title %} All Orders {% endblock %}
+
+
+{% block content %}
+<section>
+    <div class="container-fluid">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+
+                <div class="py-4">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Total Items</th>
+                                <th>Total Price</th>
+                                <th>Payments</th>
+                                <th>Delivery</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td class="text-sm">{{order.orderid}}</td>
+                                    <td class="text-sm">{{order.total_items}}</td>
+                                    <td class="text-sm">KSh. {{order.total_price|intcomma}}</td>
+                                    <td class="text-sm">{{order.payments}}</td>
+                                    <td class="text-sm">{{order.delivery}}</td>
+                                    <td class="">
+                                        <a href="{% url 'manager:order_details' order.cart_id %}"><i class="bi bi-info-circle text-success"></i><small class="text-sm ps-1 text-black">Details</small></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

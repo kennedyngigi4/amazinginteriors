@@ -1,0 +1,51 @@
+{% extends "website/base.html" %}
+
+{% block title %} Manage Address {% endblock %}
+
+{% block content %}
+{% include "website/components/header.html" %}
+    {% include "website/components/breadcrumbs.html" with title="Manage Address" %}
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    {% include "website/components/user_sidebar.html" %}
+                </div>
+                <div class="col-lg-8 col-12">
+                    <form>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">County</label>
+                                <select class="form-select" id="county">
+                                    <option value="" selected>Choose county</option>
+                                    {% for county in counties %}
+                                    <option value="{{county.name}}">{{county.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Sub County</label>
+                                <select class="form-select" id="subcounty">
+                                    <option value="" selected>Choose Sub-county</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-12 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" id="location" class="form-control" placeholder="e.g Naivas along Muthithi Rd" />
+                            </div>
+                        </div>
+                        <div class="py-3">
+                            <button class="btn btn-yellow">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include "website/components/features.html" %}
+
+    {% include "website/components/footer.html" %}
+{% endblock %}

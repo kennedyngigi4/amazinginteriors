@@ -1,0 +1,205 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %} Checkout - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+{% include "website/components/header.html" %}
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 text-center col-12">
+                <h1 class="fw-bold">Checkout</h1>
+                <p>Home / Cart / Checkout</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <form class="checkout-form">
+            {% csrf_token %}
+            <div class="row">            
+                <div class="col-lg-8 col-12 py-4">
+                    <h1 class="fw-bold fs-4">Billing Details</h1>
+                    
+                        
+                        <div class="row">
+                            <div class="col-lg-12 col-12 mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control text-capitalize" value="{{request.user.fullname}}" disabled />
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">County</label>
+                                <select class="form-select" id="county">
+                                    <option value="" selected>Choose county</option>
+                                    {% for county in counties %}
+                                        <option value="{{county.name}}">{{county.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Sub County</label>
+                                <select class="form-select" id="subcounty">
+                                    <option value="" selected>Choose Sub-county</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-12 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" id="location" class="form-control" placeholder="e.g Naivas along Muthithi Rd" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Payment Method</label>
+                                <select class="form-select" id="payment-type">
+                                    <option value="MPESA" selected>MPESA</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+254</span>
+                                    <input type="tel" id="phone" class="form-control" placeholder="748318676" />
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="col-lg-4 col-12 py-5">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <h5 class="fw-light fs-6 pt-2 pb-0">Order summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-grey">Items <span class="float-end text-dark">{{total_items|default:"0"}}</span>
+                            </p>
+                            <p class="text-grey">Sub Total <span class="float-end text-dark">KSh.
+                                    {{total_price|intcomma|default:"0"}}</span></p>
+                            <p class="text-grey">Coupon Discount <span class="float-end text-dark">KSh. 0.0</span></p>
+                            <hr />
+                            <p class="text-grey">Total <span class="float-end text-dark">KSh.
+                                    {{total_price|intcomma|default:"0"}}</span></p>
+
+                            <div class="d-grid my-3">
+                                <button class="btn btn-yellow rounded-5" id="order-payments">Proceed to Payments</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+
+<section>
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">FREE AND FAST DELIVERY</h6>
+                        <p>Free delivery for all orders over $140</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">24/7 CUSTOMER SERVICE</h6>
+                        <p>Friendly 24/7 customer support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">MONEY BACK GUARANTEE</h6>
+                        <p>We return money within 30 days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $(document).on("change", "#county", function(){
+            var county = $(this).val();
+
+            if(county){
+                $.ajax({
+                    url: "{% url 'sub_counties' %}",
+                    type: "GET",
+                    data: { "county": county },
+                    success: (response) => {
+                        
+                        $("#subcounty").empty().append("<option value=''>Select sub-county</option>");
+
+                        $.each(response, (index, subcounty) =>{
+                            $("#subcounty").append(
+                                '<option value="' + subcounty.name + '">' + subcounty.name + '</option>'
+                            )
+                        })
+                    }
+                })
+            }
+        })
+
+        $("#order-payments").on("click", function(e){
+            e.preventDefault();
+            var phone = $("#phone").val();
+            var county = $("#county").val();
+            var subcounty = $("#subcounty").val();
+            var location = $("#location").val();
+
+            let deliveredTo = location + "," + subcounty + "," + county;
+
+            if(phone == "" || county == "" || subcounty == "" || location == ""){
+                toastr.error("Fill all form fields");
+            } else {
+                $.ajax({
+                    url: "{% url 'checkout' %}",
+                    type: "POST",
+                    data: {
+                        "phone": phone,
+                        "location": deliveredTo,
+                        "csrfmiddlewaretoken": "{{ csrf_token }}"
+                    },
+                    success: (response) => {
+                        console.log(response)
+                        if(response.success){
+                            toastr.success("Order successful");
+                            setTimeout(() => {
+                                window.location.href = "/user_orders"
+                            }, 3000)
+                        } else {
+                            toastr.error("Something went wrong");
+                        }
+                    },
+                    error: (error) => {
+                        toastr.error(error);
+                    }
+                })
+            }
+        });
+    })
+</script>
+
+{% include "website/components/footer.html" %}
+{% endblock %}

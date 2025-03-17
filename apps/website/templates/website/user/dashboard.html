@@ -1,0 +1,58 @@
+{% extends "website/base.html" %}
+
+{% block title %} My Account {% endblock %}
+
+{% block content %}
+{% include "website/components/header.html" %}
+{% include "website/components/breadcrumbs.html" with title="My Account" %}
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    {% include "website/components/user_sidebar.html" %}
+                </div>
+                <div class="col-lg-8 col-12">
+                    <form class="profile-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-12 col-12 mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" value="{{request.user.fullname}}" id="fullname" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="{{request.user.email}}" id="email" disabled />
+                            </div>
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" value="{{request.user.phone}}" id="phone" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select" id="gender">
+                                    <option value="" selected>Choose gender</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Choose not to say">Choose not to say</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-12 mb-3">
+                               
+                            </div>
+                        </div>
+                        <div class="py-3">
+                            <button class="btn btn-yellow">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include "website/components/features.html" %}
+{% include "website/components/footer.html" %}
+{% endblock %}

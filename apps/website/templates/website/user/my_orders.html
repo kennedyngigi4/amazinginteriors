@@ -1,0 +1,82 @@
+{% extends "website/base.html" %}
+{% load humanize %}
+{% load math_filters %}
+{% block title %} My Orders {% endblock %}
+
+{% block content %}
+{% include "website/components/header.html" %}
+    {% include "website/components/breadcrumbs.html" with title="My Orders" %}
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    {% include "website/components/user_sidebar.html" %}
+                </div>
+                
+                    <div class="col-lg-8 col-12">
+                        {% if orders|length > 0 %}
+                            {% for order in orders %}  
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button bg-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#{{order.orderid}}"
+                                                aria-expanded="true" aria-controls="{{order.order_id}}">
+                                                <span>
+                                                    {{order.orderid}}
+
+                                                    <small class="ps-5 float-end">{{order.delivery}}</small>
+                                                </span>
+                                            </button>
+                                        </h2>
+                                        <div id="{{order.orderid}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-6">
+                                                        <small class="text-grey">Payments</small>
+                                                        <p>{{order.payments}}</p>
+                                                    </div>
+                                                    <div class="col-lg-4 col-6">
+                                                        <small class="text-grey">Total Price</small>
+                                                        <p>KSh. {{order.total_price|intcomma}}</p>
+                                                    </div>
+                                                    <div class="col-lg-4 col-6">
+                                                        <small class="text-grey">Total Items</small>
+                                                        <p>{{order.total_items}}</p>
+                                                    </div>
+                                                </div>
+                                                <h6 class="pt-3">Order Items</h6>
+                                                {% for item in order.items.all %}
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-6">
+                                                            <p>{{item.product.name}}</p>
+                                                        </div>
+                                                        <div class="col-lg-3 col-6">
+                                                            <p>KSh. {{item.price_at_purchase|intcomma}}</p>
+                                                        </div>
+                                                        <div class="col-lg-2 col-6">
+                                                            <p>{{item.quantity}}</p>
+                                                        </div>
+                                                        <div class="col-lg-3 col-6">
+                                                            <p>KSh. {{item.price_at_purchase|multiply:item.quantity|intcomma}}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>You haven't placed any orders.</p>
+                        {% endif %}
+                    </div>
+                
+            </div>
+        </div>
+    </section>
+    {% include "website/components/features.html" %}
+    
+    {% include "website/components/footer.html" %}
+{% endblock %}

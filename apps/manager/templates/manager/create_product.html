@@ -1,0 +1,120 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+<section>
+    <div class="container-fluid">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+
+                <form id="product-form" class="py-4" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-8 col-12 mb-3">
+                            <label class="form-label fw-semibold">Product name</label>
+                            <input type="text" class="form-control" placeholder="e.g 'Modern led ceiling lights'" name="name" id="name" />
+                        </div>
+                        <div class="col-lg-4 col-12 mb-3">
+                            <label class="form-label fw-semibold">Product price</label>
+                            <input type="number" class="form-control" placeholder="e.g 6000" name="price" id="price" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-12 mb-3">
+                            <label class="form-label fw-semibold">Size</label>
+                            <input type="text" class="form-control" placeholder="e.g 'Large'" name="size" id="size" />
+                        </div>
+                        <div class="col-lg-3 col-12 mb-3">
+                            <label class="form-label fw-semibold">Colors</label>
+                            <input type="text" class="form-control" name="color" placeholder="e.g. 'Red,Blue,Green ....'" id="color" />
+                        </div>
+                        <div class="col-lg-3 col-12 mb-3">
+                            <label class="form-label fw-semibold">Material</label>
+                            <input type="text" class="form-control" name="material" placeholder="e.g. 'Metal,Wooden,Plastic ....'" id="material" />
+                        </div>
+                        <div class="col-lg-3 col-12 mb-3">
+                            <label class="form-label fw-semibold">Category</label>
+                            <select name="category" id="category" class="form-select">
+                                <option value="">Choose option</option>
+                                {% for category in categories %}
+                                    <option value="{{category.name}}">{{category.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-12 mb-3">
+                            <label class="form-label fw-semibold">Main Image</label>
+                            <input type="file" class="form-control" name="main_image" id="main_image" />
+                        </div>
+                        <div class="col-lg-4 col-12 mb-3">
+                            <label class="form-label fw-semibold">In-stock?</label>
+                            <select name="in_stock" id="in_stock" class="form-select">
+                                <option value="">Choose option</option>
+                                <option value="True">Yes</option>
+                                <option value="False">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-12 mb-3">
+                            <label class="form-label fw-semibold">Description</label>
+                            <textarea rows="5" class="form-control" placeholder="Enter product description here ...." name="description" id="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-12 mb-3">
+                            <label class="form-label fw-semibold">Additional Information</label>
+                            <textarea rows="5" class="form-control" placeholder="Enter additional info here ...." name="additional_info"
+                                id="additional_info"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-dark">Submit</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function(){
+        $("#product-form").on('submit', function(e){
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            
+
+            $.ajax({
+                url: "{% url 'manager:create_product' %}",
+                type: "POST",
+                data: formData,
+                processData: false, 
+                contentType: false,
+                headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                success: function(response){
+                    if(response.success){
+                        toastr.success(response.message);
+                        setTimeout(() => {
+                            window.location.href = "/manager/products/"
+                        }, 4000)
+                    } else {
+                        toastr.error(response.message);
+                        setTimeout(() => {
+                            location.reload()
+                        }, 3000);
+                    }
+                }
+            })
+
+            
+        });
+    });
+</script>
+
+{% endblock %}

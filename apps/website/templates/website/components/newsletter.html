@@ -1,0 +1,23 @@
+<section class="newsletter">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-12 text-center">
+                <h1 class="fs-2">Our Newsletter</h1>
+                <p class="fs-3 lh-1">Subscribe to Our Newsletter to Get</p>
+                <p class="fs-5 text-yellow lh-1">Updates to Our Latest Collection</p>
+                <p class="text-sm">Get 20% Off on your first order, by subscribing to our newsletter</p>
+
+                <div>
+                    <form class="d-flex">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <span class="input-group-text border-0 rounded-start-pill bg-yellow"><i class="bi bi-envelope text-black"></i></span>
+                            <input type="email" class="form-control border-start rounded-end-pill" placeholder="Your Email" />
+                        </div>
+                        <button class="btn btn-yellow px-4 ms-3 rounded-pill">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

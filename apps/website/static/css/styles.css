@@ -1,0 +1,235 @@
+/* 
+COMPANY COLORS
+
+Yellow: #FFD700
+Black: #000000
+
+*/
+
+:root{
+    --yellow: #FFD700;
+    --black: #000000;
+    --white: #ffffff;
+    --grey: #999999;
+    --grey-300: #f3f3f3;
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    background-color: var(--white);
+}
+
+a{
+    text-decoration: none;
+}
+
+
+.bg-yellow{
+    background-color: var(--yellow);
+}
+
+
+.bg-black{
+    background-color: var(--black);
+}
+
+.text-white{
+    color: var(--white);
+}
+
+.text-black{
+    color: var(--black);
+}
+
+.text-yellow{
+    color: var(--yellow);
+}
+
+.text-sm{
+    font-size: 13px;
+}
+
+.text-grey{
+    color: #999999;
+}
+
+.truncate{
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.font-light{
+    font-weight: 200;
+}
+
+.btn-yellow{
+    background-color: var(--yellow);
+    color: var(--black);
+}
+
+.btn-yellow:hover{
+    background-color: var(--yellow);
+    color: var(--black);
+}
+
+
+
+.main-nav .navbar-nav{
+    background-color: var(--yellow);
+    color: var(--black);
+    border-radius: 35px;
+}
+
+.main-nav .navbar-nav .nav-item{
+    padding: 0 12px 0 12px;
+}
+
+.main-nav .navbar-nav .nav-item .nav-link{
+    /* color: var(--white); */
+}
+
+.header-socials{
+    
+}
+
+
+.hero .text-area{
+    padding: 120px 0 70px 0;
+}
+
+.hero .text-area .title{
+    font-size: 50px;
+    font-weight: 700;
+    padding: 20px 0 10px 0
+}
+
+.hero .text-area .subtitle{
+    line-height: 15px;
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.hero .text-area .buttons{
+    padding: 20px 0 10px 0;
+}
+
+.hero .slider-image{
+    border-radius: 30px;
+}
+
+
+.user-sidebar .nav-item{
+    border: 1px solid var(--black);
+    margin-bottom: 12px;
+    border-radius: 8px;
+}
+
+.user-sidebar .nav-item .nav-link{
+    color: var(--black);
+    font-weight: 300;
+}
+
+.user-sidebar .nav-item.active {
+    background-color: var(--yellow);
+    border: 1px solid var(--yellow);
+}
+
+
+/*================== ABOUT SECTION ==================== */
+.mission{
+    background-image: linear-gradient(to top right, rgb(255, 255, 255), rgb(255, 255, 255, 0.7)), url("../images/bg/mission.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+}
+
+
+.vision {
+    background-image: linear-gradient(to top right, rgb(255, 255, 255), rgb(255, 255, 255, 0.7)), url("../images/bg/vision.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+}
+
+.about-card{
+    border-radius: 30px;
+}
+
+.core-values{
+    border-radius: 30px;
+}
+
+
+
+/* ================== FLASH SALES ================== */
+.flash-sale .counter-area{
+    background-color: #f3f3f3;
+    border-radius: 45px;
+}
+
+
+/* ==================== DEALS ========================= */
+.deal-card{
+    background-color: #F2F2F2;
+    border-radius: 20px;
+}
+
+.deal-card img{
+    border-radius: 20px;
+}
+
+
+
+/* ========== PROJECTS =============================== */
+.project-image{
+    border-radius: 40px;
+}
+
+
+
+/* =============== TESTIMONIALS ================= */
+.testimonials-section{
+    background-image: linear-gradient(to top, rgb(255, 255, 255, 0.6), rgb(255, 255, 255, 0.6)), url("../images/bg/mission.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+/* ==================QUOTE SECTION ==================== */
+.quote-section{
+    background-image: linear-gradient(to top, rgb(255, 255, 255), rgb(255, 255, 255, 0.7)), url("../images/bg/mission.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* ===============MISC ============== */
+.facebook, .instagram, .tiktok{
+    width: 90px;
+    height: 90px;
+    /* border-radius: 15px; */
+}
+
+
+/* ==================CART======================= */
+.cart-img-holder{
+    width: 40px;
+    height: 60px;
+    overflow: hidden;
+}
+
+.cart-row{
+    border-bottom: 1px solid var(--grey-300);
+    padding-top: 8px;
+}
+
+
+.footer .copyright{
+    border-top: 1px dotted var(--white);
+}
+
+

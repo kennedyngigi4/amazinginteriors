@@ -1,0 +1,168 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load string_filters %}
+{% block title %} {{product.name}} - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+    {% include "website/components/header.html" %}
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 text-center col-12">
+                    <h1 class="fw-bold">Shop</h1>
+                    <p>Home / <a class="text-dark" href="{% url 'shop' %}">Shop</a> / {{product.category}} / {{product.name}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-3">
+                            {% for i in "1234" %}
+                                <img src="{{product.main_image.url}}" class="img-fluid mb-3 d-block mx-auto" style="width: 80%" />
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-9 col-9">
+                            <img src="{{product.main_image.url}}" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <h1 class="fs-4">{{product.name}}</h1>
+                    <small>{% if product.in_stock %} In Stock {% else %} <p class="text-danger">Out of Stock</p>{% endif %}</small>
+
+                    <div>
+                        <h1 class="fs-5">KSh. {{product.price|intcomma}}</h1>
+                    </div>
+                    <div>
+                        <p class="text-grey text-sm">{{product.description}}</p>
+                    </div>
+                    <div style="display: flex;">
+                        {% for color in product.colors|split:"," %}
+                            <div style="background-color:{{color}}; border-radius: 50%; height:15px; width:15px; margin-right: 3px;"></div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="row py-3">
+                        <div class="col-5">
+                            {% if product.in_stock %}
+                                <button class="btn btn-yellow btn-sm rounded-0 px-4" id="add-cart-btn" data-product="{{product.product_id}}">Add to Cart</button>
+                            {% else %}
+                                <button class="btn btn-danger btn-sm rounded-0 px-4" disabled>Out of Stock</button>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8 col-12 border">
+                            <div class="row pt-3">
+                                <div class="col-lg-2 col-4">
+                                    <i class="bi bi-car-front fs-1"></i>
+                                </div>
+                                <div class="col-lg-8 col-8">
+                                    <h6 class="text-sm">Countrywide Delivery</h6>
+                                    <p class="text-sm">Enter your location for delivery</p>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-2 col-4">
+                                    <i class="bi bi-car-front fs-1"></i>
+                                </div>
+                                <div class="col-lg-8 col-8">
+                                    <h6 class="text-sm">Return Delivery</h6>
+                                    <p class="text-sm">Free 30 days returns</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12 justify-content-center">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button"
+                                role="tab" aria-controls="description-tab-pane" aria-selected="true">Description</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane" type="button"
+                                role="tab" aria-controls="info-tab-pane" aria-selected="false">Additional Information</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button"
+                                role="tab" aria-controls="reviews-tab-pane" aria-selected="false">Reviews</button>
+                        </li>
+                        
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
+                            {{product.description}}
+                        </div>
+                        <div class="tab-pane fade" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
+                            {{product.additional_info}}
+                        </div>
+                        <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">...
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="py-5">
+        <div class="container">
+            <h1 class="text-yellow fw-semibold fs-4">Related Products</h1>
+            <div class="row">
+                <div class="col-lg-12 col-12">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        $(document).ready(function(){
+            $(document).on("click", "#add-cart-btn", function(e){
+                e.preventDefault();
+                
+                var product_id = $(this).data("product");
+                $.ajax({
+                    url: "{% url 'add_to_cart' %}",
+                    type: "POST",
+                    data: {
+                        "product_id": product_id,
+                        "csrfmiddlewaretoken": "{{ csrf_token }}"
+                    },
+                    success: (response) => {
+                        toastr.success(response.message)
+                    },
+                    error: (error) => {
+                        toastr.error(error)
+                        alert("Failed to add product. Please try again.");
+                    }
+                })
+
+            })
+        });
+    </script>
+
+
+    {% include "website/components/footer.html" %}
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %} Sign up - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+{% include "website/components/header.html" %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-12">
+                <h1 class="fs-4 fw-bold">Sign up</h1>
+                <p>Fill in with your details to create account</p>
+
+                <form method="post" id="sign-in-form" class="py-4">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" placeholder="Enter First Name" class="form-control rounded-5" name="firstName" id="firstName" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" placeholder="Enter Last Name" class="form-control rounded-5" name="lastName" id="lastName" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" placeholder="Enter email address" class="form-control rounded-5" name="email" id="email" />
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" placeholder="********" class="form-control border-end-0 rounded-start-5" name="password" id="password" />
+                            <span class="input-group-text rounded-end-5 bg-white border-start-0" id="togglePassword"><i class="bi bi-eye-slash"></i></span>
+                        </div>
+                        
+                    </div>
+                    <div class="form-check mb-4">
+                        <input type="checkbox" class="form-check-input" checked />
+                        <label class="form-check-label fw-light">Agree with <strong>Terms & Conditions</strong> and <strong>Privacy Policy</strong></label>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button class="btn btn-yellow rounded-5 fw-semibold" id="sign-up-btn">Sign up</button>
+                    </div>
+                </form>
+                <p class="py-2 text-center">Already having account? <a href="{% url 'sign_in' %}">Sign in</a></p>
+            </div>
+            <div class="col-lg-7 col-12">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $("#togglePassword").on("click", function(){
+            let passwordField = $("#password");
+            let icon = $(this).find("i");
+
+            if(passwordField.attr("type") === "password"){
+                passwordField.attr("type", "text");
+                icon.removeClass("bi-eye-slash").addClass("bi-eye")
+            } else {
+                passwordField.attr("type", "password");
+                icon.removeClass("bi-eye").addClass("bi-eye-slash");
+            }
+
+        });
+
+        $("#sign-up-btn").on("click",function (e) {
+            e.preventDefault();
+
+            var firstName = $("#firstName").val();
+            var lastName = $("#lastName").val();
+            var email = $("#email").val();
+            var password = $("#password").val();
+
+            if(firstName == "" || lastName == "" || email == "" || password == ""){
+                toastr.error("Fill all form fields");
+            } else {
+                var formData = new FormData();
+                var fullname = firstName.concat(" ", lastName)
+                formData.append("fullname", fullname);
+                formData.append("email", email);
+                formData.append("password", password);
+
+                $.ajax({
+                    url: "{% url 'sign_up' %}",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                    success: (response) => {
+                        if(response.success){
+                            toastr.success(response.message)
+                            setTimeout(() => {
+                                window.location.href = "/sign_in"
+                            }, 4000)
+                            
+                        } else {
+                            toastr.error(response.message)
+                        }
+                    },
+                    error: (e) => {
+                        toastr.error("Something went wrong, ",e);
+                    }
+                })
+            }
+
+            
+            
+        });
+    })
+</script>
+
+{% include "website/components/footer.html" %}
+{% endblock %}

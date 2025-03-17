@@ -1,0 +1,134 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %} Contact Us - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+    {% include "website/components/header.html" %}
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 text-center col-12">
+                    <h1 class="fw-bold">Contact</h1>
+                    <p>Home / Contact Us</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-7 col-12">
+                    <h1 class="fs-3 fw-bold">Get In Touch</h1>
+                    <p class="text-sm">Your email address will not be published. Fill in required fields<span class="text-danger">*</span></p>
+                
+                    <form>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Your Name<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control rounded-pill" placeholder="" />
+                            </div>
+                            <div class="col-lg-6 col-12 mb-3">
+                                <label class="form-label">Your Email<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control rounded-pill" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-12 mb-3">
+                                <label class="form-label">Subject<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control rounded-pill" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-12 mb-3">
+                                <label class="form-label">Your Message<span class="text-danger">*</span></label>
+                                <textarea rows="5" class="form-control rounded-4"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-yellow rounded-pill px-4">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-5 col-12">
+                    <div class="card border-0 bg-yellow rounded-5">
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h2 class="fs-5 fw-semibold">Address</h2>
+                                <p>Karen, Nairobi</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h2 class="fs-5 fw-semibold">Contact</h2>
+                                <p>Phone - +254 748 318 676 </p>
+                                <p>Email - info@amazinginteriors.africa </p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h2 class="fs-5 fw-semibold">Open Time</h2>
+                                <p>Monday - Friday: 8:00 - 20:00 </p>
+                                <p>Saturday: 9:00 - 20:00 </p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h2 class="fs-5 fw-semibold">Stay Connected</h2>
+                                <div class="">
+                                    <a href="" class="bg-black facebook p-2 rounded-circle"><i class="bi bi-facebook text-yellow"></i></a>
+                                    <a href="" class="bg-black instagram p-2 rounded-circle"><i class="bi bi-instagram text-yellow"></i></a>
+                                    <a href="" class="bg-black tiktok p-2 rounded-circle"><i class="bi bi-tiktok text-yellow"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63820.254755874834!2d36.6505243432473!3d-1.3160144098796869!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1c809869d64b%3A0x199b5604a77f13f5!2sKaren%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1740747885147!5m2!1sen!2ske"
+            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <div class="card border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star fs-1"></i>
+                            <h6 class="fw-bold">FREE AND FAST DELIVERY</h6>
+                            <p>Free delivery for all orders over $140</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="card border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star fs-1"></i>
+                            <h6 class="fw-bold">24/7 CUSTOMER SERVICE</h6>
+                            <p>Friendly 24/7 customer support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="card border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star fs-1"></i>
+                            <h6 class="fw-bold">MONEY BACK GUARANTEE</h6>
+                            <p>We return money within 30 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include "website/components/footer.html" %}
+{% endblock %}

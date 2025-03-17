@@ -1,0 +1,161 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %} Cart - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+{% include "website/components/header.html" %}
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 text-center col-12">
+                <h1 class="fw-bold">Cart</h1>
+                <p>Home / Cart</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            
+            {% if cart_items %}
+            <div class="col-lg-8 col-12 py-3">
+                    {% for item in cart_items %}
+                        <div class="row cart-row">
+                            
+                            <div class="col-lg-4">
+                                <div class="cart-img-holder">
+                                    <img src="{{item.product.main_image.url}}" class="img-fluid" />
+                                    
+                                </div>
+                                <p class="truncate text-sm">{{item.product.name}}</p>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="pt-3 text-sm">KSh. {{item.product.price|intcomma}}</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <p class="pt-3 text-sm">{{item.quantity}}</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <p class="pt-3 text-sm">KSh. {{item.total_price|intcomma}}</p>
+                            </div>
+                        </div>    
+                    {% endfor %}
+               
+            </div>
+            <div class="col-lg-4 col-12 py-3">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="fw-light fs-6 pt-2 pb-0">Order summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-grey">Items <span class="float-end text-dark">{{total_items|default:"0"}}</span></p>
+                        <p class="text-grey">Sub Total <span class="float-end text-dark">KSh. {{total_price|intcomma|default:"0"}}</span></p>
+                        <p class="text-grey">Coupon Discount <span class="float-end text-dark">KSh. 0.0</span></p>
+                        <hr />
+                        <p class="text-grey">Total <span class="float-end text-dark">KSh. {{total_price|intcomma|default:"0"}}</span></p>
+
+                        <div class="d-grid my-3">
+                            <button class="btn btn-yellow rounded-5" id="checkout-btn">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-12 col-12 text-center py-5">
+                        <i class="bi bi-cart fs-2"></i>
+                        <h3 class="fs-6">Your cart is empty!</h3>
+                        <p>Browse our products and discover our best deals!</p>
+                
+                        <a href="{% url 'shop' %}" class="btn btn-dark rounded-0">Start Shopping</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+
+
+<section>
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">FREE AND FAST DELIVERY</h6>
+                        <p>Free delivery for all orders over $140</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">24/7 CUSTOMER SERVICE</h6>
+                        <p>Friendly 24/7 customer support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star fs-1"></i>
+                        <h6 class="fw-bold">MONEY BACK GUARANTEE</h6>
+                        <p>We return money within 30 days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $(document).on("click", "#add-to-cart", function (e) {
+            e.preventDefault();
+
+            var product_id = $(this).data("product")
+            $.ajax({
+                url: "{% url 'add_to_cart' %}",
+                type: "POST",
+                data: {
+                    "product_id": product_id,
+                    "csrfmiddlewaretoken": "{{ csrf_token }}"
+                },
+                success: (response) => {
+                    toastr.success(response.message)
+                    // location.reload()
+                },
+                error: (error) => {
+                    toastr.error(error)
+                    alert("Failed to add product. Please try again.");
+                }
+
+            })
+        });
+
+        $("#checkout-btn").on("click", function(){
+            var loggedin = "{{ request.user.is_authenticated }}";
+            
+            if(loggedin === "True"){
+                window.location.href = "/checkout"
+            } else {
+                toastr.error("You must be logged in.")
+            }
+        })
+    });
+
+    
+</script>
+
+{% include "website/components/footer.html" %}
+{% endblock %}

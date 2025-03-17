@@ -1,0 +1,20 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+<section>
+    <div class="container-fluid">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+
+
+                <p>Payments</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

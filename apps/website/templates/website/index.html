@@ -1,0 +1,330 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %} Amazing Interiors - Transforming Spaces, Elevating Lifestyles {% endblock %}
+
+
+{% block content %}
+    {% include "website/components/header.html" %}
+    <section class="hero">
+        <div class="container pb-5">
+            <div class="row">
+                <div class="col-lg-6 col-12 text-area">
+                    <div class="bg-yellow rounded-pill py-1 px-2">
+                        Your one stop shop for exquisite interiors and illuminating designs
+                    </div>
+                    <h1 class="title">Transforming Spaces, Elevating Lifestyles</h1>
+                    <div class="subtitle">
+                        <p>Your dream space starts here.</p>
+                        <p>Let's create something amazing!</p>
+                    </div>
+                    <div class="row buttons">
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <button class="btn rounded-pill px-4 btn-yellow">Learn More</button>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <a href="" class="fw-bold text-black mt-2">View All Products</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 images">
+                    <div class="row">
+                        <div class="col-lg-6 col">
+                            <img src="{% static 'images/slides/1.jpg' %}" class="img-fluid mb-3 slider-image" />
+                            <img src="{% static 'images/slides/3.jpg' %}" class="img-fluid mb-3 slider-image" />
+                        </div>
+                        <div class="col-lg-6 col">
+                            <img src="{% static 'images/slides/2.jpg' %}" class="img-fluid mb-3 slider-image" />
+                            <img src="{% static 'images/slides/1.jpg' %}" class="img-fluid mb-3 slider-image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        {% include "website/components/about_us.html" %}
+    </section>
+
+
+    <section class="services">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <h1 class="fw-bold fs-4 text-yellow">Our Services</h1>
+                    <p class="text-sm lh-lg">
+                        Amazing is a luxury interior design company based in Karen Nairobi and Sinza Dar esalaam. We offer a full range of
+                        interior and exterior design services to bring your vision to life! From stunning ceilings to elegant outdoor spaces.
+                    </p>
+                    <h6 class="text-yellow">They include:</h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item text-sm">
+                           <i class="bi bi-star-fill text-yellow"></i> Gypsum Ceiling Designs
+                        </li>
+                        <li class="nav-item text-sm">
+                            <i class="bi bi-star-fill text-yellow"></i> Custom Wall Painting & Finishing
+                        </li>
+                        <li class="nav-item text-sm">
+                            <i class="bi bi-star-fill text-yellow"></i> Stylish Floor Tiling & Wooden Flooring
+                        </li>
+                        <li class="nav-item text-sm">
+                            <i class="bi bi-star-fill text-yellow"></i> Tailored Kitchens & Wardrobes
+                        </li>
+                        <li class="nav-item text-sm">
+                            <i class="bi bi-star-fill text-yellow"></i> Exquisite Wainscoting for an Elegant Touch
+                        </li>
+                        <li class="nav-item text-sm">
+                            <i class="bi bi-star-fill text-yellow"></i> Professional Plumbing & Fittings
+                        </li>
+                        <li class="nav-item text-sm">
+                            <i class="bi bi-star-fill text-yellow"></i> Expert Electrical Wiring & Lighting Solutions
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-8 col-12">
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-black">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <h1 class="fs-2 text-yellow fw-bold">2,350+</h1>
+                    <p class="text-sm text-white">Projects Completed</p>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <h1 class="fs-2 text-yellow fw-bold">15+</h1>
+                    <p class="text-sm text-white">Years of Experience</p>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <h1 class="fs-2 text-yellow fw-bold">120+</h1>
+                    <p class="text-sm text-white">Happy Clients</p>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <h1 class="fs-2 text-yellow fw-bold">1,000+</h1>
+                    <p class="text-sm text-white">Cups of Coffee</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <h4 class="text-yellow fs-5 lh-1">Our Products</h4>
+                    <h1 class="fs-3 fw-bold lh-1">Explore Our Products</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="py-5 flash-sale">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-12 counter-area p-4">
+                    <h4 class="text-yellow fs-5 lh-1">Today's</h4>
+                    
+                    <h1 class="fs-2 text-black text-center pt-4">Flash Sales</h1>
+                    <p class="text-center">Get 25% Off - Limited Time Offer!</p>
+
+                    <div class="text-center counter pt-4">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <p class="text-sm text-black lh-1">Days</p>
+                                <h3 class="fw-bold lh-1">03</h3>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="text-sm text-black lh-1">Hours</p>
+                                <h3 class="fw-bold lh-1">23</h3>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="text-sm text-black lh-1">Minutes</p>
+                                <h3 class="fw-bold lh-1">19</h3>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="text-sm text-black lh-1">Seconds</p>
+                                <h3 class="fw-bold lh-1">56</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center py-5">
+                        <button class="btn btn-yellow px-5 font-bold py-2 rounded-pill">Shop Now</button>
+                    </div>
+
+                </div>
+                <div class="col-lg-7 col-12">
+                    <h4 class="text-yellow fs-5 lh-1">Today's</h4>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <h4 class="text-yellow fs-5 lh-1">Today Deals</h4>
+                    <h1 class="fs-3 fw-bold lh-1">Deals of the Day</h1>
+                </div>
+            </div>
+        </div>
+        <div class="ps-5">
+            {% include 'website/components/deals.html' %}
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <div class="card border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star fs-1"></i>
+                            <h6 class="fw-bold">FREE AND FAST DELIVERY</h6>
+                            <p>Free delivery for all orders over $140</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="card border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star fs-1"></i>
+                            <h6 class="fw-bold">24/7 CUSTOMER SERVICE</h6>
+                            <p>Friendly 24/7 customer support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="card border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star fs-1"></i>
+                            <h6 class="fw-bold">MONEY BACK GUARANTEE</h6>
+                            <p>We return money within 30 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12 text-center">
+                    <h1 class="fs-2 fw-bold lh-1">Projects</h1>
+                </div>
+            </div>
+        </div>
+        <div>
+            {% include 'website/components/projects.html' %}
+        </div>
+        
+    </section>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12 text-center">
+                    <h1 class="fs-2 fw-bold lh-1">FAQs</h1>
+                    <h4 class="fs-4 lh-1">Question? <span class="text-yellow">Look Here</span></h4>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-lg-10 offset-lg-1 col-12">
+                    {% include 'website/components/faqs.html' %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="testimonials-section pb-3">
+        <div class="container py-5 border-0">
+            <h1 class="text-center fs-3 fw-bold pb-3">Testimonials</h1>
+            <div class="row testimonials">
+                <div class="col-lg-4">
+                    <div class="card border-0 me-5">
+                        <div class="card-body">
+                            <h4 class="text-yellow ">John Smith</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati ipsa dolorem ea, quidem eos, praesentium corrupti voluptates fugit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 me-5">
+                        <div class="card-body">
+                            <h4 class="text-yellow ">John Smith</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati ipsa dolorem ea, quidem eos,
+                                praesentium corrupti voluptates fugit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 me-5">
+                        <div class="card-body">
+                            <h4 class="text-yellow ">John Smith</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati ipsa dolorem ea, quidem eos,
+                                praesentium corrupti voluptates fugit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 me-5">
+                        <div class="card-body">
+                            <h4 class="text-yellow ">John Smith</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati ipsa dolorem ea, quidem eos,
+                                praesentium corrupti voluptates fugit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 me-5">
+                        <div class="card-body">
+                            <h4 class="text-yellow ">John Smith</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati ipsa dolorem ea, quidem eos,
+                                praesentium corrupti voluptates fugit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 me-5">
+                        <div class="card-body">
+                            <h4 class="text-yellow ">John Smith</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati ipsa dolorem ea, quidem eos,
+                                praesentium corrupti voluptates fugit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        {% include "website/components/newsletter.html" %}
+    </section>
+
+
+    <section>
+        {% include "website/components/quote.html" %}
+    </section>
+
+    {% include "website/components/footer.html" %}
+{% endblock %}
+

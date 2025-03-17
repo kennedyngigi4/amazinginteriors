@@ -1,0 +1,61 @@
+{% load static %}
+<section class="bg-yellow">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-12 py-2">
+                <span>Call: <strong>+254 748 318 676</strong></span>
+            </div>
+            <div class="col-lg-7 col-12 py-2 text-center">
+                <span>Sign up and <strong>GET 25% OFF</strong> for your first order <strong>Sign up now</strong></span>
+            </div>
+            <div class="col-lg-2 col-12 py-2 text-end">
+                <span class="ps-3"><i class="bi bi-facebook"></i></span>
+                <span class="ps-3"><i class="bi bi-instagram"></i></span>
+                <span class="ps-3"><i class="bi bi-tiktok"></i></span>
+            </div>
+        </div>
+    </div>
+</section>
+<nav class="navbar navbar-expand-lg bg-black main-nav text-white sticky-top">
+    <div class="container">
+        <a class="navbar-brand text-white" href="{% url 'index' %}">
+            <img src="{% static 'images/logo.png' %}" class="img-fluid" style="width: 40%;" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'shop' %}">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'services' %}">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
+            </ul>
+            <div class="shop-icons">
+                <span class="ps-3"><i class="bi bi-heart"></i></span>
+                <span class="ps-3">
+                    <a href="{% url 'cart' %}"><i class="bi bi-cart text-white"></i></a>
+                </span>
+                <span class="ps-3 text-white">
+                    {% if request.user.is_authenticated and not request.user.is_staff %}
+                        <small><a href="{% url 'user_dashboard' %}" class="text-white text-capitalize truncate">Hello, {{request.user.fullname}}</a></small>
+                    {% else %}
+                        <a href="{% url 'sign_in' %}"><i class="bi bi-person text-white"></i></a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</nav>

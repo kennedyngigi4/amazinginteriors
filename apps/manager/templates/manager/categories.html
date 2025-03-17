@@ -1,0 +1,96 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<section>
+    <div class="container-fluid">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+
+                <div class="container py-4">
+                    <div class="row">
+                        <div class="col-lg-5 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Add category
+                                </div>
+                                <div class="card-body">
+                                    <form method="post" id="category-form">
+                                        <!-- {% csrf_token %} -->
+                                        <div>
+                                            <label class="form-label">Name</label>
+                                            <input type="text" class="form-control" placeholder="e.g Lights" name="name" id="name" />
+                                        </div>
+                                        <div class="pt-3">
+                                            <button type="submit" class="btn btn-dark">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-12">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{category.name}}</td>
+                                            <td><i class="bi bi-trash text-danger"></i></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <script src="{% static 'manager/js/admin.js' %}"></script> -->
+<script>
+    $(document).ready(function () {
+        $("#category-form").on("submit", function (e) {
+            e.preventDefault();
+
+            var category = $("#name").val();
+            $.ajax({
+                url: "/manager/categories/",
+                type: "POST",
+                data: { "name": category, csrfmiddlewaretoken : "{{ csrf_token }}", },
+                success: function(response){
+                    if(response.success){
+                        toastr.success(response.message);
+                        setTimeout(() => {
+                            location.reload()
+                        }, 4000);
+                    } else {
+                        toastr.error("Something went wrong.");
+                        setTimeout(() => {
+                            location.reload()
+                        }, 4000);
+                    }
+                }
+            })
+        })
+
+    });
+</script>
+
+
+{% endblock %}

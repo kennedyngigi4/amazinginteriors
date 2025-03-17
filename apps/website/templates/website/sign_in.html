@@ -1,0 +1,103 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %} Sign in - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+{% include "website/components/header.html" %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-12">
+                <h1 class="fs-4 fw-bold">Sign in</h1>
+                <p>Please fill your details to access your account</p>
+
+                <form method="post" id="sign-in-form" class="py-4">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" placeholder="Enter email address" class="form-control rounded-5" name="email" id="email" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" placeholder="********" class="form-control rounded-start-5 border-end-0" name="password" id="password" />
+                            <span class="input-group-text rounded-end-5 border-start-0 bg-white toggle-password"><i class="bi bi-eye-slash"></i></span>
+                        </div>
+                        
+                    </div>
+                    <div class="py-1 text-end">
+                        <p><a href="">Forgot password?</a></p>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-yellow rounded-5 fw-semibold" id="sign-in-btn">Log in</button>
+                    </div>
+                </form>
+                <p class="py-2 text-center">Not registered? <a href="{% url 'sign_up' %}">Sign up</a></p>
+            </div>
+            <div class="col-lg-7 col-12">
+            
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $(".toggle-password").on("click", function(){
+            let passwordField = $("#password"); 
+            let icon = $(this).find("i");
+
+            if(passwordField.attr("type") === "password"){
+                passwordField.attr("type", "text");
+                icon.removeClass("bi-eye-slash").addClass("bi-eye")
+            } else {
+                passwordField.attr("type", "password")
+                icon.removeClass("bi-eye").addClass("bi-eye-slash");
+            }
+        });
+
+
+        $("#sign-in-form").on("submit", function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            let email = $("#email").val();
+            let password = $("#password").val();
+
+            if(email == "" || password == ""){
+                toastr.error("Email and Password are required!");
+            } else {
+                $.ajax({
+                    url: "{% url 'sign_in' %}",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                    success: (response) => {
+                        if(response.success){
+                            toastr.success(response.message);
+                            setTimeout(() => {
+                                window.location.href = response.url
+                            }, 4000)
+                            
+                        } else {
+                            toastr.error(response.message)
+                        }
+                    },
+                    error: (e) => {
+                        toastr.error(e)
+                    }
+                })
+            }
+
+        });
+    })
+</script>
+
+{% include "website/components/footer.html" %}
+{% endblock %}

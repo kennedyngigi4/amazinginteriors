@@ -1,0 +1,104 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+<section>
+    <div class="container-fluid pb-5">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+                <div class="row py-3">
+                    <div class="col-lg-3 col-6 mb-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="all-users"></h3>
+                                <p>Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6 mb-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="all-orders"></h3>
+                                <p>Total Orders</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6 mb-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="all-payments"></h3>
+                                <p>Payments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <canvas id="ordersChart" style="height: 600px; width: 100%;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Fetch order data from API
+    fetch("{% url 'manager:orders-data' %}")  // Ensure this URL is correctly mapped
+        .then(response => response.json())
+        .then(data => {
+            let maxOrderCount = Math.max(...data.data, 100);  // Ensure at least 100
+            maxOrderCount = Math.ceil(maxOrderCount / 5) * 5;  
+
+            $(".all-users").text(data.total_users);
+            $(".all-orders").text(data.total_orders);
+            let formattedPayments =  Number(data.total_payments).toLocaleString();
+            $(".all-payments").html(formattedPayments + "<sup class='text-sm'>KSh.</sup>")
+
+
+            const ctx = document.getElementById("ordersChart").getContext("2d");
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: data.labels,  // X-axis: Dates
+                    datasets: [
+                        {
+                            label: "Orders",
+                            data: data.data,  // Y-axis: Order counts
+                            borderColor: "blue",
+                            backgroundColor: "rgba(0, 123, 255, 0.2)",
+                            fill: true,
+                        },
+                        {
+                            label: "Payments",
+                            data: data.payments,  // Y-axis: Order counts
+                            borderColor: "green",
+                            backgroundColor: "rgba(0, 123, 255, 0.2)",
+                            fill: true,
+                        }
+                        
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: "Date" } },
+                        y: { 
+                            // title: { display: true, text: "Orders" }, 
+                            beginAtZero: true,
+                            max: maxOrderCount,  // Dynamically increases max limit
+                            ticks: {
+                                stepSize: 5,  // Adjusts step size for better visibility
+                                autoSkip: false,  // Prevent Chart.js from skipping ticks
+                                maxTicksLimit: 20 
+                            }
+                        },
+                    }
+                }
+            });
+        });
+</script>
+
+{% endblock %}

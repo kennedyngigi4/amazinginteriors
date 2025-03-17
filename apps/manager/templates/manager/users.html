@@ -1,0 +1,51 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+<section>
+    <div class="container-fluid">
+        <div class="row gap-0">
+            <div class="col-lg-2 col-12 admin-sidebar">
+                {% include "manager/components/sidebar.html" %}
+            </div>
+            <div class="col-lg-10 col-12">
+                {% include "manager/components/top-bar.html" %}
+
+
+                <div class="py-3">
+                    <table class="table table-striped">
+                        <thead class="table-warning">
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Account</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{user.fullname}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.phone}}</td>
+                                    <td>
+                                        {% if user.is_admin %}
+                                            <small class="text-success fw-semibold">Admin</small>
+                                        {% else %}
+                                            <small class="text-info fw-semibold">Customer</small>
+                                        {% endif %}
+                                    </td>
+                                    <td><i class="bi bi-info-circle text-success fs-6"></i></td>
+                                </tr>
+                            {% empty %}
+                                <p>No registered users</p>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %} Our Services - Amazing Interiors {% endblock %}
+
+
+{% block content %}
+    {% include "website/components/header.html" %}
+        <section class="bg-light">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3 text-center col-12">
+                        <h1 class="fw-bold">Services</h1>
+                        <p>Home / Services</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+
+        </section>
+
+
+        <section>
+            {% include "website/components/newsletter.html" %}
+        </section>
+        
+        
+        <section>
+            {% include "website/components/quote.html" %}
+        </section>
+
+    {% include "website/components/footer.html" %}
+{% endblock %}
