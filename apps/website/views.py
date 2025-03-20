@@ -11,7 +11,12 @@ from apps.accounts.forms import *
 
 
 def IndexView(request):
-    context = {}
+    products = Product.objects.all().order_by("-created_at")[:8]
+    deals = Product.objects.all().order_by("-created_at")[:10]
+    context = {
+        "products": products,
+        "deals": deals
+    }
     return render(request, "website/index.html", context)
 
 
@@ -48,6 +53,10 @@ def ContactsView(request):
     context = {}
     return render(request, "website/contact_us.html", context)
 
+
+def FavoritesView(request):
+    context = {}
+    return render(request, "website/favorites.html", context)
 
 
 def SignUpView(request):

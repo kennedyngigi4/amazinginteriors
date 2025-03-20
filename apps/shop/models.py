@@ -32,6 +32,7 @@ class Product(models.Model):
     additional_info = models.TextField(null=True, blank=True)
     main_image = models.ImageField(upload_to="products", null=True, blank=True)
     in_stock = models.BooleanField(default=True)
+    promotion_category = models.CharField(max_length=60, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 

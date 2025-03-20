@@ -8,6 +8,7 @@ urlpatterns = [
     path( "product_details/<str:pk>/<str:name>", ProductDetailsView, name="product_details", ),
     path( "services", ServicesView, name="services", ),
     path( "contact", ContactsView, name="contact", ),
+    path( "favorites", FavoritesView, name="favorites", ),
 
     path( "sign_up", SignUpView, name="sign_up", ),
     path( "sign_in", SignInView, name="sign_in", ),

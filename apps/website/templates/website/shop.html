@@ -58,6 +58,11 @@
                         <div class="col-lg-4 col-6">
                             <div class="card mb-4 border-0">
                                 <a href="{% url 'product_details' product.product_id product.name %}">
+                                    <div class="product-icons">
+                                        <button class="favorite-btn"><i class="bi bi-heart"></i></button>
+                                        <br />
+                                        <button class="favorite-btn mt-3"><i class="bi bi-eye"></i></button>
+                                    </div>
                                     <img src="{{product.main_image.url}}" class="img-fluid rounded-3" />
                                     <div class="card-body">
                                         <h1 class="fs-6 truncate text-dark">{{product.name}}</h1>
@@ -78,37 +83,7 @@
 
 
 <section>
-    <div class="container py-4">
-        <div class="row">
-            <div class="col-lg-4 col-12">
-                <div class="card border-0">
-                    <div class="card-body text-center">
-                        <i class="bi bi-star fs-1"></i>
-                        <h6 class="fw-bold">FREE AND FAST DELIVERY</h6>
-                        <p>Free delivery for all orders over $140</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="card border-0">
-                    <div class="card-body text-center">
-                        <i class="bi bi-star fs-1"></i>
-                        <h6 class="fw-bold">24/7 CUSTOMER SERVICE</h6>
-                        <p>Friendly 24/7 customer support</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="card border-0">
-                    <div class="card-body text-center">
-                        <i class="bi bi-star fs-1"></i>
-                        <h6 class="fw-bold">MONEY BACK GUARANTEE</h6>
-                        <p>We return money within 30 days</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'website/components/features.html' %}
 </section>
 
 

@@ -87,9 +87,19 @@
                     </div>
                 </form>
 
+
+                <div class="row py-4 bg-light">
+                    <div class="col-lg-12 text-end col-12">
+                        <button class="btn btn-danger" id="delete-product">Remove Product</button>
+                    </div>
+                </div>
             </div>
         </div>
+        
+            
+        
     </div>
+    
 </section>
 
 <script>
@@ -122,6 +132,31 @@
                 }
             })
 
+
+        });
+
+
+        $(document).on("click", "#delete-product", function(e){
+            e.preventDefault();
+
+            
+            $.ajax({
+                url: "{% url 'manager:product_delete' product.product_id %}",
+                type: "POST",
+                data: {
+                    "csrfmiddlewaretoken": "{{ csrf_token }}"
+                },
+                success: (res) => {
+                    if(res.success){
+                        toastr.success("Product deleted successfully");
+                        setTimeout(() => {
+                            window.location.href = "/manager/products";
+                        }, 3000)
+                        
+                    }
+                },
+                
+            })
 
         });
     });

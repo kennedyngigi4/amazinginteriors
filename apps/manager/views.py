@@ -126,6 +126,19 @@ def ManagerProduct(request, pk=None):
 
 
 @staff_member_required(login_url="sign_in")
+def ManagerDeleteProduct(request, pk=None):
+    if request.method == "POST":
+        print(pk)
+        product = get_object_or_404(Product, product_id=pk)
+        
+        if product:
+            product.delete()
+            return JsonResponse({ "success": True, "message": "Product deleted successfully"})
+        else:
+            return JsonResponse({ "success": False, "message": "Product not found"})
+
+
+@staff_member_required(login_url="sign_in")
 def ManagerOrders(request):
     orders = Cart.objects.all().prefetch_related("items__product")
     context = {

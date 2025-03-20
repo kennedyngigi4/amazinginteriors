@@ -101,7 +101,7 @@ a{
 }
 
 .hero .text-area .title{
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 700;
     padding: 20px 0 10px 0
 }
@@ -118,6 +118,11 @@ a{
 
 .hero .slider-image{
     border-radius: 30px;
+}
+
+.hero .images{
+    height: 550px;
+    overflow-y: hidden;
 }
 
 
@@ -170,6 +175,36 @@ a{
     border-radius: 45px;
 }
 
+ul#example {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0 40px;
+    display: block;
+    text-align: center;
+}
+
+ul#example li {
+    display: inline-block;
+}
+
+ul#example li span {
+    font-size: 50px;
+    font-weight: 500;
+    line-height: 80px;
+}
+
+ul#example li.seperator {
+    font-size: 50px;
+    line-height: 70px;
+    vertical-align: top;
+    color: var(--yellow);
+}
+
+ul#example li p {
+    color: #a7abb1;
+    font-size: 18px;
+}
+
 
 /* ==================== DEALS ========================= */
 .deal-card{
@@ -179,6 +214,7 @@ a{
 
 .deal-card img{
     border-radius: 20px;
+    position: relative;
 }
 
 
@@ -214,6 +250,28 @@ a{
     /* border-radius: 15px; */
 }
 
+.feature-icons{
+    width: 20%;
+}
+
+
+/*===================SHOP====================  */
+.product-icons{
+    position: absolute;
+    right: 5px;
+    top: 15px
+}
+.favorite-btn{
+    border: none;
+    border-radius: 50%;
+}
+
+.deal-card .deal-discount{
+    position: absolute;
+    z-index: 9999;
+    top: 1%;
+    
+}
 
 /* ==================CART======================= */
 .cart-img-holder{
@@ -226,6 +284,9 @@ a{
     border-bottom: 1px solid var(--grey-300);
     padding-top: 8px;
 }
+
+
+
 
 
 .footer .copyright{
